@@ -105,3 +105,23 @@ main.py ......                                                         [100%]
 ============================= 6 passed in 0.03s =============================
 
 Decided to change regex regarding suffixes as realised that professional suffixes (md, dds, etc) wouldnt particularly matter for patients as it is more important to get the patients name correct than to preserve their titles. Suffixes like Jr and Sr are kept as they are used to differentiate between different people
+
+moved the pytests to a dedicated testing python file to declutter main.py
+
+Traceback (most recent call last):
+  File "c:\Users\light\Documents\GitHub Repos\CPS4003-Assessment2\main.py", line 48, in <module>
+    open_csv(csvfile)
+    ~~~~~~~~^^^^^^^^^
+  File "c:\Users\light\Documents\GitHub Repos\CPS4003-Assessment2\main.py", line 42, in open_csv
+    row["Billing Amount"] = float(row["Billing Amount"].strip("£"))
+                            ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: could not convert string to float: '18,856.28'
+
+Problem: trying to remove £ and commas from string to convert it into float but running into errors.
+Fix: used replace() to remove the comma
+
+A negative value was found in the "Billing Amount" column of the dataset. A decision was made to log the negative value and skip it since it would skew any analysis run on the dataset. A new file "data_cleaning_log" will be created and updated on each run of open_csv() file detailing what rows are skipped so any other rows with the same error are accounted for automatically
+
+Decided to change the strip() in the "billing amount" column to replace() as strip() only removes from outer edges of string, so symbols like "-" can stop others from being stripped
+
+Decided to standardise billing amounts to two decimal places to avoid floating point errors and to align more with standard financial practices
